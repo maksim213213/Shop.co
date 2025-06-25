@@ -23,13 +23,13 @@ export const homePage = async () => {
     <div class="col-lg-6 p-5 d-flex flex-column justify-content-center hero-text-column">
 
       <h1 class="hero-title fw-bolder">
-        FIND ANYTHING<br>THAT MATCHES<br><span class="text-decoration-underline">YOUR STYLE</span>
+        FIND <span class="text-decoration-underline">ANYTHING</span><br>THAT MATCHES<br>YOUR STYLE
       </h1>
-      <p class="lead text-muted my-4">
+      <p class="lead text-muted my-3">
         Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.
       </p>
-      <div class="mt-3">
-        <button id="shop-now-btn" class="btn btn-dark btn-lg px-5 py-3">Shop Now</button>
+      <div class="mt-3 d-grid d-lg-block">
+        <button id="shop-now-btn" class="btn btn-dark btn-lg px-5 py-3 rounded-5">Shop Now</button>
       </div>
       <div class="d-flex mt-5">
         <div class="me-4">
@@ -56,12 +56,12 @@ export const homePage = async () => {
   // Секция с логотипами брендов
   const brandsSection = `
     <section class="bg-dark text-white py-4">
-      <div class="container d-flex justify-content-around align-items-center">
-        <img src="${versaceIcon}" href="https://www.versace.com" target="_blank" class="text-white text-decoration-none fs-4"></a>
-        <img src="${zaraIcon}" href="https://www.zara.com" target="_blank" class="text-white text-decoration-none fs-4"></a>
-        <img src="${gucciIcon}" href="https://www.gucci.com" target="_blank" class="text-white text-decoration-none fs-4"></a>
-        <img src="${pradaIcon}" href="https://www.prada.com" target="_blank" class="text-white text-decoration-none fs-4"></a>
-        <img src="${calvinKleinIcon}" href="https://www.calvinklein.com" target="_blank" class="text-white text-decoration-none fs-4"></a>
+      <div class="container d-flex justify-content-around align-items-center flex-wrap g-3 ">
+        <img src="${versaceIcon}" href="https://www.versace.com" target="_blank" class="text-white text-decoration-none fs-4 m-2"></a>
+        <img src="${zaraIcon}" href="https://www.zara.com" target="_blank" class="text-white text-decoration-none fs-4 m-2"></a>
+        <img src="${gucciIcon}" href="https://www.gucci.com" target="_blank" class="text-white text-decoration-none fs-4 m-2"></a>
+        <img src="${pradaIcon}" href="https://www.prada.com" target="_blank" class="text-white text-decoration-none fs-4 m-2"></a>
+        <img src="${calvinKleinIcon}" href="https://www.calvinklein.com" target="_blank" class="text-white text-decoration-none fs-4 m-2"></a>
       </div>
     </section>
   `;
@@ -72,7 +72,7 @@ export const homePage = async () => {
       <section id="categories-section">
         <h2 class="text-center fw-bold mb-4">Categories</h2>
         <div class="row g-4">
-          ${categories.map(category => {
+          ${categories.slice(0,12).map(category => {
             if (typeof category !== 'string') {
               console.warn('Unexpected data in categories array, skipping item:', category);
               return '';
@@ -81,7 +81,7 @@ export const homePage = async () => {
               <div class="col-6 col-md-4 col-lg-3">
                 <a href="/category/${category}" data-navigo class="category-tile card text-decoration-none text-dark text-center">
                   <div class="card-body d-flex align-items-center justify-content-center">
-                    <h5 class="card-title text-capitalize fw-bold">${category.replace(/-/g, ' ')}</h5>
+                    <h3 class="card-title text-capitalize fw-bold">${category.replace(/-/g, ' ')}</h3>
                   </div>
                 </a>
               </div>

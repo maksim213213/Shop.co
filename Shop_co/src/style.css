@@ -20,7 +20,7 @@
   background-image: url('/src/assets/icons/star-1.svg');
   background-repeat: no-repeat;
   background-size: 56px 34px; /* Размер звезды */
-  background-position: top 15% right 15%; /* Позиция звезды */
+  background-position: top 15% right 0%; /* Позиция звезды */
 }
 
 .hero-image-column {
@@ -51,4 +51,36 @@
 }
 .site-footer {
   padding-top: 200px;
+}
+
+.navbar-toggler {
+  border: none;
+  padding: 0;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none; /* Убираем синюю рамку при фокусе */
+}
+
+.navbar-toggler-icon-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: #212529; /* Цвет палочек */
+  margin: 4px 0;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Анимация в крестик, когда меню открыто */
+/* :not(.collapsed) - это класс, который Bootstrap убирает у кнопки при открытии меню */
+.navbar-toggler:not(.collapsed) .navbar-toggler-icon-bar:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.navbar-toggler:not(.collapsed) .navbar-toggler-icon-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-toggler:not(.collapsed) .navbar-toggler-icon-bar:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
 }
