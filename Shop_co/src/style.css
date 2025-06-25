@@ -1,0 +1,54 @@
+.category-tile {
+  min-height: 120px;
+  background-color: #f2f2f2; /* Светло-серый фон как в макете */
+  border: none;
+  transition: all 0.3s ease; /* Плавный переход для всех свойств */
+}
+
+.category-tile:hover {
+  transform: scale(1.05); /* Немного увеличиваем при наведении */
+  filter: brightness(0.95); /* Немного затемняем */
+  cursor: pointer;
+}
+
+/* Стили для Hero секции */
+.hero-text-column {
+  background-color: #F2F0F1; /* Ваш цвет фона */
+  position: relative; /* Нужно для позиционирования звезд */
+   background-color: #F2F0F1;
+  /* Добавляем фон-звездочку */
+  background-image: url('/src/assets/icons/star-1.svg');
+  background-repeat: no-repeat;
+  background-size: 56px 34px; /* Размер звезды */
+  background-position: top 15% right 15%; /* Позиция звезды */
+}
+
+.hero-image-column {
+  min-height: 600px;
+  background-image: url('/src/assets/icons/star-2.svg'), url('/src/assets/images/hero-image.svg'); /* Два фоновых изображения */
+  background-size:104px 64px, cover; /* Размеры изображений */ 
+  background-position: top 0% left 90% ,100% 50%; /* Позиционирование изображения */
+  background-repeat: no-repeat;
+}
+
+.hero-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 64px;
+  line-height: 1; /* Более плотная строка */
+}
+
+/* Стили для плавающих звезд */
+.hero-star {
+  position: absolute;
+  width: 40px; /* Можете поменять размер */
+  height: 40px;
+}
+
+#subscribe-container {
+  position: relative; /* Обязательно для работы z-index */
+  z-index: 50;      /* Ставим этот блок "выше" других по оси Z, чтобы он был поверх футера */
+  margin-bottom: -120px !important; /* Отрицательный отступ, чтобы перекрыть футер */
+}
+.site-footer {
+  padding-top: 200px;
+}
