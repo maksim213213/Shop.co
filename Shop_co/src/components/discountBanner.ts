@@ -13,26 +13,22 @@ const render = () => {
 };
 
 export const initializeDiscountBanner = () => {
-  // Проверяем, не закрывал ли пользователь баннер ранее
   const isBannerClosed = localStorage.getItem(BANNER_STORAGE_KEY);
   if (isBannerClosed === 'true') {
-    return; // Если да, то просто выходим и не рендерим баннер
+    return;
   }
 
   const bannerContainer = document.getElementById('discount-banner-container');
   if (bannerContainer) {
     bannerContainer.innerHTML = render();
 
-    // Находим кнопку закрытия
     const closeButton = document.getElementById('close-banner-btn');
     const bannerElement = document.getElementById('discount-banner');
 
     if (closeButton && bannerElement) {
-      // Добавляем обработчик клика
       closeButton.addEventListener('click', () => {
-        // Прячем баннер
         bannerElement.style.display = 'none';
-        // Сохраняем информацию в localStorage, чтобы больше не показывать
+        // localstorage
         localStorage.setItem(BANNER_STORAGE_KEY, 'true');
       });
     }

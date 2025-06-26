@@ -18,7 +18,7 @@ initializeFooter();
 initializeRouter();
 
 const handleResize = () => {
-  const DESKTOP_BREAKPOINT = 992; // Точка, когда у нас появляется десктопное меню
+  const DESKTOP_BREAKPOINT = 990; // Ширина экрана для десктопа
   const navbarMenu = document.getElementById('navbar-menu');
 
   if (window.innerWidth >= DESKTOP_BREAKPOINT) {

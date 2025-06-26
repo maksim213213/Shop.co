@@ -1,10 +1,9 @@
-// src/router/router.ts
-
 import Navigo from 'navigo';
-// Импортируем наши "страницы"
+//pages
 import { homePage } from '../pages/homePage';
 import { cartPage } from '../pages/cartPage';
 import { profilePage } from '../pages/profilePage';
+import { categoryPage } from '../pages/categoryPage';
 
 const appContainer = document.getElementById('app-container');
 const router = new Navigo('/');
@@ -17,11 +16,11 @@ const renderContent = (html: string) => {
 
 const setupRoutes = () => {
   router
-    .on('/', async () => { // <--- Делаем обработчик асинхронным
+    .on('/', async () => {
       const page = await homePage();
       renderContent(page.html);
       if (page.postRender) {
-        page.postRender(); // <--- Вызываем функцию для добавления обработчиков
+        page.postRender(); 
       }
     })
     .on('/cart', () => {
@@ -30,7 +29,16 @@ const setupRoutes = () => {
     .on('/profile', () => {
       renderContent(profilePage());
     })
-    // Добавим обработчик для несуществующих роутов
+    .on('/category/:categoryName', async (match) => {
+      if (match && match.data) {
+        const page = await categoryPage(match.data.categoryName);
+        renderContent(page.html);
+        if (page.postRender) {
+          page.postRender();
+        }
+      }
+    })
+    //для не найденых роутеров
     .notFound(() => {
       renderContent('<h1>404 - Page Not Found</h1>');
     })
@@ -40,7 +48,5 @@ const setupRoutes = () => {
 export const initializeRouter = () => {
   setupRoutes();
   
-  // После инициализации хедера, нужно обновить ссылки, чтобы Navigo их обработал
-  // Эта функция найдет все ссылки с атрибутом data-navigo и повесит на них обработчики
   router.updatePageLinks(); 
 };

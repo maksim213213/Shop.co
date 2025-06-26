@@ -1,4 +1,3 @@
-// src/components/header.ts
 import cartIcon from '/src/assets/icons/cartIcon.svg';
 import userIcon from '/src/assets/icons/userIcon.svg';
 
@@ -43,7 +42,7 @@ export const initializeHeader = () => {
 
   headerContainer.innerHTML = render();
 
-  // Логика для плавной прокрутки
+  //плавная прокрутка
   const scrollLinks = headerContainer.querySelectorAll('[data-scroll-to]');
   scrollLinks.forEach(link => {
     link.addEventListener('click', (event) => {
@@ -52,8 +51,6 @@ export const initializeHeader = () => {
       const targetElement = document.querySelector(targetId);
       if (targetElement) {
         targetElement.scrollIntoView({ behavior: 'smooth' });
-
-        // Закрываем бургер-меню после клика, если оно открыто
         const navbarMenu = document.getElementById('navbar-menu');
         const togglerButton = document.querySelector('.navbar-toggler');
         if (navbarMenu?.classList.contains('show')) {

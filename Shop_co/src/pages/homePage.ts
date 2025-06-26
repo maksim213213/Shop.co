@@ -1,6 +1,3 @@
-// src/pages/homePage.ts
-// src/pages/homePage.ts
-
 import { getCategories } from '../api/dummy-api';
 
 import gucciIcon  from '/src/assets/brands-icons/gucci.svg';
@@ -9,13 +6,10 @@ import pradaIcon from '/src/assets/brands-icons/prada.svg';
 import versaceIcon from '/src/assets/brands-icons/versace.svg';
 import zaraIcon from '/src/assets/brands-icons/zara.svg';
 
-// ВАЖНО: Ваша функция теперь должна быть async, так как мы ждем данные с сервера
 export const homePage = async () => {
-  // 1. Получаем категории с сервера
+  //категории с сервера
   const categories = await getCategories();
   console.log('Categories received from API:', categories);
-
-  // 2. Генерируем HTML-разметку для каждой секции
   
   // Секция Hero
     const heroSection = `
@@ -57,11 +51,21 @@ export const homePage = async () => {
   const brandsSection = `
     <section class="bg-dark text-white py-4">
       <div class="container d-flex justify-content-around align-items-center flex-wrap g-3 ">
-        <img src="${versaceIcon}" href="https://www.versace.com" target="_blank" class="text-white text-decoration-none fs-4 m-2"></a>
-        <img src="${zaraIcon}" href="https://www.zara.com" target="_blank" class="text-white text-decoration-none fs-4 m-2"></a>
-        <img src="${gucciIcon}" href="https://www.gucci.com" target="_blank" class="text-white text-decoration-none fs-4 m-2"></a>
-        <img src="${pradaIcon}" href="https://www.prada.com" target="_blank" class="text-white text-decoration-none fs-4 m-2"></a>
-        <img src="${calvinKleinIcon}" href="https://www.calvinklein.com" target="_blank" class="text-white text-decoration-none fs-4 m-2"></a>
+        <a href="https://www.versace.com" target="_blank">
+          <img src="${versaceIcon}" alt="Versace" class="text-white text-decoration-none fs-4 m-2">
+        </a>
+        <a href="https://www.zara.com" target="_blank">
+          <img src="${zaraIcon}" alt="Zara" class="text-white text-decoration-none fs-4 m-2">
+        </a>
+        <a href="https://www.gucci.com" target="_blank">
+          <img src="${gucciIcon}" alt="Gucci" class="text-white text-decoration-none fs-4 m-2">
+        </a>
+        <a href="https://www.prada.com" target="_blank">
+          <img src="${pradaIcon}" alt="Prada" class="text-white text-decoration-none fs-4 m-2">
+        </a>
+        <a href="https://www.calvinklein.com" target="_blank">
+          <img src="${calvinKleinIcon}" alt="Calvin Klein" class="text-white text-decoration-none fs-4 m-2">
+        </a>
       </div>
     </section>
   `;
@@ -92,18 +96,15 @@ export const homePage = async () => {
     </div>
   `;
 
-  // 3. Собираем все секции вместе
   const html = `
     ${heroSection}
     ${brandsSection}
     ${categoriesSection}
   `;
 
-  // 4. Возвращаем объект с HTML и функцией для добавления обработчиков
   return {
     html: html,
     postRender: () => {
-      // Логика для кнопки "Shop Now"
       const shopNowBtn = document.getElementById('shop-now-btn');
       const categoriesEl = document.getElementById('categories-section');
       if (shopNowBtn && categoriesEl) {

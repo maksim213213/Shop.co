@@ -2,22 +2,20 @@ import postIcon from '/src/assets/icons/postIcon.svg'
  
 const render = () => {
   const html = `
-    <div id="subscribe-form-container" class="bg-dark text-white p-4 rounded-5">
+    <div id="subscribe-form-container" class="bg-dark text-white p-4 rounded-4 p-4">
       <div class="row align-items-center">
         <div class="col-lg-6">
-          <h2 class="display-5 fw-bolder">STAY UPTO DATE ABOUT OUR LATEST OFFERS</h2>
+          <h2 class="display-5 fw-bolder p-4">STAY UPTO DATE ABOUT OUR LATEST OFFERS</h2>
         </div>
-        <div class="col-lg-6 d-flex flex-column justify-content-center">
+        <div class="col-lg-6 d-flex flex-column justify-content-center style="width: 80%">
           <form id="subscribe-form">
-            <div class="mb-3">
-              <div class="input-group rounded-5" style="overflow: hidden;">
-                <span class="input-group-text bg-white border-0 ps-3">
-                  <img src="${postIcon}"  width="24" height="24">
-                </span>
-                <input type="email" id="email-input" class="form-control border-0 py-3" placeholder="Enter your email address" required">
-              </div>
+            <div class="input-group rounded-5 mb-3" style="overflow: hidden;">
+              <span class="input-group-text bg-white border-0 ps-3">
+                <img src="${postIcon}"  width="24" height="24">
+              </span>
+              <input type="email" id="email-input" class="form-control border-0 py-3 " placeholder="Enter your email address" required">
             </div>
-            <button type="submit" class="btn btn-light w-100 py-3 rounded-5 fw-bold">Subscribe to Newsletter</button>
+            <button type="submit" class="btn btn-light  py-3 rounded-5 fw-bold w-100">Subscribe to Newsletter</button>
           </form>
         </div>
       </div>
@@ -26,10 +24,9 @@ const render = () => {
   return html;
 };
 
-// Функция для имитации запроса на сервер
 const mockSubscribe = (email: string) => {
   console.log(`Subscribing ${email}...`);
-  return new Promise(resolve => setTimeout(resolve, 1500)); // Имитируем задержку сети
+  return new Promise(resolve => setTimeout(resolve, 1500)); 
 };
 
 export const initializeSubscribe = () => {
@@ -43,7 +40,7 @@ export const initializeSubscribe = () => {
 
   if (form && formContainer) {
     form.addEventListener('submit', async (event) => {
-      event.preventDefault(); // Предотвращаем перезагрузку страницы
+      event.preventDefault(); // Предотвращает перезагрузку
       
       const emailInput = document.getElementById('email-input') as HTMLInputElement;
       const email = emailInput.value;
@@ -54,12 +51,11 @@ export const initializeSubscribe = () => {
         return;
       }
 
-      // Показываем состояние загрузки (можно добавить спиннер)
       form.innerHTML = '<p>Subscribing...</p>';
       
       await mockSubscribe(email);
 
-      // Показываем сообщение об успехе, как в ТЗ
+      // Показываем сообщение об успехе
       formContainer.innerHTML = `
         <div class="text-center p-5">
           <h2 class="display-5 fw-bolder">Success!</h2>
