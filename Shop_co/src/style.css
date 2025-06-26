@@ -85,3 +85,19 @@
   transform: translateY(-6px) rotate(-45deg);
 }
 
+.custom-radio input[type="radio"] {
+  display: none;
+}
+.custom-radio label {
+  cursor: pointer; /* Показываем, что на текст можно нажать */
+  color: #6c757d; /* Серый цвет для неактивных опций */
+  font-weight: 400; /* Обычная жирность */
+  transition: all 0.2s ease;
+}
+.custom-radio label:hover {
+    color: #000; /* При наведении делаем текст черным */
+}
+.custom-radio input[type="radio"]:checked + label {
+  font-weight: 700; /* Жирный шрифт для выбранной опции */
+  color: #000000;
+}

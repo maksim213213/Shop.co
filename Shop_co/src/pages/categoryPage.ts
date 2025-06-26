@@ -48,24 +48,37 @@ const renderProductCard = (product: Product): string => {
 };
 
 export const categoryPage = async (categoryName: string) => {
-  const products = await getProductsByCategory(categoryName);
+  let originalProducts: Product[] = [];
+
+  // --- 2. Новая функция для отображения товаров в сетке ---
+  const displayProducts = (products: Product[]) => {
+    const productGrid = document.getElementById('product-grid');
+    if (productGrid) {
+      // Очищаем сетку перед отрисовкой новых товаров
+      productGrid.innerHTML = products.map(renderProductCard).join('');
+    }
+  };
+
+  // Загружаем товары при первом рендере
+  originalProducts = await getProductsByCategory(categoryName);
   
   const html = `
     <!-- location Home/categoryName -->
     <div class="container mt-4">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/" data-navigo>Home</a></li>
-          <li class="breadcrumb-item active text-capitalize" aria-current="page">${categoryName.replace(/-/g, ' ')}</li>
+          <li class="breadcrumb-item"><a href="/" data-navigo class="text-decoration-none text-capitalize text-dark">Home</a></li>
+          <li class="breadcrumb-item active text-capitalize text-dark" aria-current="page">${categoryName.replace(/-/g, ' ')}</li>
         </ol>
       </nav>
-      
-      <!-- Фильтры и список товаров -->
-      <div class="col-lg-3">
+
+      <div class="row">
+        
+        <div class="col-lg-3">
           <div class="p-3 border rounded-3">
             <div class="d-flex justify-content-between align-items-center mb-3">
-              <h4 class="mb-0">Filers</h4>
-              <img src="${setting}" alt="Filter icon"></img>
+              <h4 class="mb-0">Filters</h4>
+              <a href="#"><img src="${setting}" alt="Filter icon"></a>
             </div>
             <hr>
             
@@ -73,11 +86,11 @@ export const categoryPage = async (categoryName: string) => {
               <h5 class="mb-3">Sort By</h5>
               <div class="custom-radio mb-2">
                 <input type="radio" id="sort-price-asc" name="sort" value="price-asc">
-                <label for="sort-price-asc">Price: Ascending</label>
+                <label for="sort-price-asc">Ascending</label>
               </div>
               <div class="custom-radio mb-2">
                 <input type="radio" id="sort-price-desc" name="sort" value="price-desc">
-                <label for="sort-price-desc">Price: Descending</label>
+                <label for="sort-price-desc">Descending</label>
               </div>
               <div class="custom-radio mb-2">
                 <input type="radio" id="sort-rating-desc" name="sort" value="rating-desc" checked>
@@ -93,21 +106,57 @@ export const categoryPage = async (categoryName: string) => {
           </div>
         </div>
 
-        <!-- all categoty-->
         <div class="col-lg-9">
           <h2 class="text-capitalize mb-4">${categoryName.replace(/-/g, ' ')}</h2>
           <div id="product-grid" class="row g-4">
-            ${products.map(renderProductCard).join('')}
+            ${originalProducts.map(renderProductCard).join('')}
           </div>
         </div>
-      </div>
-    </div>
+
+      </div> </div>
+
   `;
 
   return {
     html: html,
     postRender: () => {
-      
+      const applyBtn = document.getElementById('apply-filters-btn');
+      const resetBtn = document.getElementById('reset-filters-btn');
+
+      // Логика кнопки Apply Filter
+      applyBtn?.addEventListener('click', () => {
+        const selectedSortInput = document.querySelector('input[name="sort"]:checked') as HTMLInputElement;
+        if (!selectedSortInput) return;
+
+        const sortValue = selectedSortInput.value;
+        // создаем копию массива, чтобы не изменять исходный
+        // для сортировки
+        const productsToSort = [...originalProducts]; 
+
+        switch (sortValue) {
+          case 'price-asc':
+            productsToSort.sort((a, b) => a.price - b.price);
+            break;
+          case 'price-desc':
+            productsToSort.sort((a, b) => b.price - a.price);
+            break;
+          case 'rating-desc':
+            productsToSort.sort((a, b) => b.rating - a.rating);
+            break;
+        }
+
+        displayProducts(productsToSort);
+      });
+
+      // --- Логика кнопки "Reset Filter" ---
+      resetBtn?.addEventListener('click', () => {
+        // Сбрасываем выбор на опцию по умолчанию
+        const defaultSortInput = document.getElementById('sort-rating-desc') as HTMLInputElement;
+        if (defaultSortInput) {
+          defaultSortInput.checked = true;
+        }
+        displayProducts(originalProducts);
+      })
     }
-  };
-};
+  }
+}
