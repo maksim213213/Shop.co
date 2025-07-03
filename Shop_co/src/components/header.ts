@@ -1,7 +1,8 @@
-import { getCartTotalItems } from '/src/state/cart-state';
 
 import cartIcon from '/src/assets/icons/cartIcon.svg';
 import userIcon from '/src/assets/icons/userIcon.svg';
+
+import { fetchDemoCart } from '/src/state/cart-state';
 
 const render = () => {
   const html = `
@@ -41,12 +42,19 @@ const render = () => {
   return html;
 };
 
-export const updateCartBadge = () => {
+export const updateCartBadge = async () => {
   const badge = document.getElementById('cart-badge');
   if (badge) {
-    const totalItems = getCartTotalItems();
-    badge.textContent = String(totalItems);
-    badge.style.display = totalItems > 0 ? 'block' : 'none';
+    // Показываем счетчик, только если корзина активирована
+    if (sessionStorage.getItem('cartActivated') === 'true') {
+      const demoCart = await fetchDemoCart();
+      const totalItems = demoCart ? demoCart.totalQuantity : 0;
+      badge.textContent = String(totalItems);
+      badge.style.display = totalItems > 0 ? 'block' : 'none';
+    } else {
+      // Если не активирована, всегда прячем счетчик
+      badge.style.display = 'none';
+    }
   }
 };
 

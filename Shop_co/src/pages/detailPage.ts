@@ -1,15 +1,14 @@
-// src/pages/productDetailPage.ts
+import { getProductById} from '/src/api/dummy-api';
+import type { Product } from '/src/api/dummy-api';
 
-import { getProductById} from '../api/dummy-api';
-import type { Product } from '../api/dummy-api';
-
-import { addToCart } from '/src/state/cart-state'; 
 import { updateCartBadge } from '/src/components/header';
+import { router } from '/src/router/router';
+
 
 import minusIcon from '/src/assets/icons/minus.svg';
 import plusIcon from '/src/assets/icons/plus.svg';
 
-// Вспомогательная функция для отрисовки звезд рейтинга (можем вынести в utils позже)
+//отрисовка звезд рейтинга
 const renderStars = (rating: number): string => {
   const fullStars = Math.floor(rating);
   const halfStar = rating % 1 >= 0.5;
@@ -27,12 +26,11 @@ const renderStars = (rating: number): string => {
 };
 
 
-// Главная функция страницы
 export const productDetailPage = async (productId: string) => {
   const product = await getProductById(productId);
 
   if (!product) {
-    return { html: '<h1>Product not found</h1>' };
+    return { html: '<h1>404 - Product Not Found</h1><a href="/" data-navigo>Go back to homepage</a>' };
   }
 
   const discountedPrice = (product.price * (1 - product.discountPercentage / 100)).toFixed(2);
@@ -80,11 +78,9 @@ export const productDetailPage = async (productId: string) => {
               <p class="fw-bold fs-5 mb-0">${product.brand}</p>
             </div>
           ` : ''}
-          <hr>
-          
           <div class="mb-3">
               <span class="text-muted">In Stock</span>
-              <p class=" fw-bold fs-5 mb-0">${product.stock} items</p>
+              <p class="text-success fw-bold fs-5 mb-0">${product.stock} items</p>
           </div>
           <hr>
           <div class="d-flex align-items-center mb-4">
@@ -107,10 +103,9 @@ export const productDetailPage = async (productId: string) => {
   return {
     html: html,
     postRender: () => {
-      // Логика для галереи изображений
+      //Логика галереи изображений
       const mainImage = document.getElementById('main-product-image') as HTMLImageElement;
-      const thumbnails = document.querySelectorAll('.product-thumbnail');
-      thumbnails.forEach(thumb => {
+      document.querySelectorAll('.product-thumbnail').forEach(thumb => {
         thumb.addEventListener('click', (event) => {
           const target = event.currentTarget as HTMLImageElement;
           const fullImageUrl = target.dataset.fullImage;
@@ -119,45 +114,39 @@ export const productDetailPage = async (productId: string) => {
           }
         });
       });
-       let currentQuantity = 1;
+
+      //Декоративная логика для +/-
       const quantityValueEl = document.getElementById('quantity-value');
-      const plusBtn = document.getElementById('quantity-plus');
-      const minusBtn = document.getElementById('quantity-minus');
-      const addToCartBtn = document.getElementById('add-to-cart-btn');
-
-      const updateQuantityDisplay = () => {
-        if (quantityValueEl) {
-          quantityValueEl.textContent = String(currentQuantity);
-        }
-      };
-
-      plusBtn?.addEventListener('click', () => {
-        if (currentQuantity < product.stock) {
-          currentQuantity++;
-          updateQuantityDisplay();
-        }
+      document.getElementById('quantity-plus')?.addEventListener('click', () => {
+          if(quantityValueEl) quantityValueEl.textContent = String(Number(quantityValueEl.textContent) + 1);
       });
-
-      minusBtn?.addEventListener('click', () => {
-        if (currentQuantity > 1) {
-          currentQuantity--;
-          updateQuantityDisplay();
-        }
+      document.getElementById('quantity-minus')?.addEventListener('click', () => {
+          if(quantityValueEl && Number(quantityValueEl.textContent) > 1) {
+              quantityValueEl.textContent = String(Number(quantityValueEl.textContent) - 1);
+          }
       });
+      
+      const addToCartBtn = document.getElementById('add-to-cart-btn') as HTMLButtonElement;
+      if (!addToCartBtn) return;
 
-      addToCartBtn?.addEventListener('click', () => {
-        addToCart(product, currentQuantity); // Добавляем в корзину
-        updateCartBadge(); // Обновляем иконку в хедере
-        // Даем пользователю обратную связь
-        if(addToCartBtn) {
-            addToCartBtn.textContent = 'Added!';
-            addToCartBtn.classList.add('btn-success');
-            setTimeout(() => {
-                addToCartBtn.textContent = 'Add to Cart';
-                addToCartBtn.classList.remove('btn-success');
-            }, 2000);
-        }
-      });
+      if (sessionStorage.getItem('cartActivated') === 'true') {
+        // Если корзина уже активирована, делаем кнопку неактивной
+        addToCartBtn.setAttribute('disabled', 'true');
+      } else {
+        // Если нет, вешаем обработчик
+        addToCartBtn.addEventListener('click', async () => {
+          addToCartBtn.textContent = 'Activating...';
+
+          // Устанавливаем флаг в sessionStorage
+          sessionStorage.setItem('cartActivated', 'true');
+
+          // Обновляем счетчик в хедере
+          await updateCartBadge();
+
+          // Возвращаем исходный текст кнопки, но оставляем ее неактивной НАВСЕГДА
+          addToCartBtn.textContent = 'Add to Cart';
+        }, { once: true }); // <--- { once: true } заставляет обработчик сработать один раз и удалиться
+      }
     }
   };
-}
+};

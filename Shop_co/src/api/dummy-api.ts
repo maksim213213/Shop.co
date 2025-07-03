@@ -1,15 +1,12 @@
-// src/api/dummy-api.ts
-
 const API_BASE_URL = 'https://dummyjson.com';
 
-// Описываем тип данных для одной категории, который мы получаем
 export type Category = {
   slug: string;
   name: string;
   url: string;
 };
 
-// getCategory для получения списка категорий из апи
+// получениe списка категорий из апи
 export const getCategories = async (): Promise<Category[]> => {
   try {
     // Используем эндпоинт для получения списка категорий
@@ -55,7 +52,7 @@ export const getProductsByCategory = async (categorySlug: string): Promise<Produ
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data: ProductsResponse = await response.json();
-    return data.products; // Возвращаем только массив продуктов
+    return data.products; 
   } catch (error) {
     console.error(`Failed to fetch products for category ${categorySlug}:`, error);
     return [];

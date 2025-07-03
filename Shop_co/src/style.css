@@ -1,53 +1,53 @@
 .category-tile {
   min-height: 120px;
-  background-color: #f2f2f2; /* Светло-серый фон как в макете */
+  background-color: #f2f2f2; 
   border: none;
-  transition: all 0.3s ease; /* Плавный переход для всех свойств */
+  transition: all 0.3s ease;
 }
 
 .category-tile:hover {
-  transform: scale(1.05); /* Немного увеличиваем при наведении */
-  filter: brightness(0.95); /* Немного затемняем */
+  transform: scale(1.05);
+  filter: brightness(0.95);
   cursor: pointer;
 }
 
-/* Стили для Hero секции */
+
 .hero-text-column {
-  background-color: #F2F0F1; /* Ваш цвет фона */
-  position: relative; /* Нужно для позиционирования звезд */
+  background-color: #F2F0F1;
+  position: relative; 
    background-color: #F2F0F1;
-  /* Добавляем фон-звездочку */
+
   background-image: url('/src/assets/icons/star-1.svg');
   background-repeat: no-repeat;
-  background-size: 56px 34px; /* Размер звезды */
-  background-position: top 15% right 0%; /* Позиция звезды */
+  background-size: 56px 34px; 
+  background-position: top 15% right 0%; 
 }
 
 .hero-image-column {
   min-height: 600px;
   background-image: url('/src/assets/icons/star-2.svg'), url('/src/assets/images/hero-image.svg'); /* Два фоновых изображения */
-  background-size:104px 64px, cover; /* Размеры изображений */ 
-  background-position: top 0% left 90% ,100% 50%; /* Позиционирование изображения */
+  background-size:104px 64px, cover; 
+  background-position: top 0% left 90% ,100% 50%; 
   background-repeat: no-repeat;
 }
 
 .hero-title {
   font-family: 'Poppins', sans-serif;
   font-size: 64px;
-  line-height: 1; /* Более плотная строка */
+  line-height: 1; 
 }
 
-/* Стили для плавающих звезд */
+
 .hero-star {
   position: absolute;
-  width: 40px; /* Можете поменять размер */
+  width: 40px; 
   height: 40px;
 }
 
 #subscribe-container {
-  position: relative; /* Обязательно для работы z-index */
-  z-index: 50;      /* Ставим этот блок "выше" других по оси Z, чтобы он был поверх футера */
-  margin-bottom: -120px !important; /* Отрицательный отступ, чтобы перекрыть футер */
+  position: relative; 
+  z-index: 50;      
+  margin-bottom: -120px !important;
 }
 .site-footer {
   padding-top: 200px;
@@ -59,14 +59,14 @@
 }
 
 .navbar-toggler:focus {
-  box-shadow: none; /* Убираем синюю рамку при фокусе */
+  box-shadow: none; 
 }
 
 .navbar-toggler-icon-bar {
   display: block;
   width: 22px;
   height: 2px;
-  background-color: #212529; /* Цвет палочек */
+  background-color: #212529; 
   margin: 4px 0;
   transition: all 0.3s ease-in-out;
 }
@@ -89,16 +89,16 @@
   display: none;
 }
 .custom-radio label {
-  cursor: pointer; /* Показываем, что на текст можно нажать */
-  color: #6c757d; /* Серый цвет для неактивных опций */
-  font-weight: 400; /* Обычная жирность */
+  cursor: pointer;
+  color: #6c757d; 
+  font-weight: 400; 
   transition: all 0.2s ease;
 }
 .custom-radio label:hover {
-    color: #000; /* При наведении делаем текст черным */
+    color: #000; 
 }
 .custom-radio input[type="radio"]:checked + label {
-  font-weight: 700; /* Жирный шрифт для выбранной опции */
+  font-weight: 700; 
   color: #000000;
 }
 
@@ -106,25 +106,25 @@
   display: inline-flex;
   align-items: center;
   background-color: #f2f2f2;
-  border-radius: 50px; /* Овальная форма */
-  padding: 6px 10px;   /* Внутренние отступы */
+  border-radius: 50px;
+  padding: 6px 10px;  
   border: 1px solid #e5e5e5;
 }
 
 /* Стили для КНОПОК "-" и "+" внутри переключателя */
 .quantity-selector .quantity-btn {
-  border: none;          /* <<--- Убираем рамку */
-  background: none;      /* <<--- Убираем фон */
-  padding: 0 12px;       /* Добавляем боковые отступы для кликабельной области */
-  font-size: 1.5rem;     /* Размер символов */
+  border: none;          
+  background: none;      
+  padding: 0 12px;       
+  font-size: 1.5rem;    
   font-weight: 400;
   cursor: pointer;
   color: #212529;    
   height: 36px;
-  width: 60px;           /* Фиксированная ширина и высота для круглой формы */
+  width: 60px;          
 
   display: flex;
-  align-items: center;       /* Вертикальное центрирование */
+  align-items: center;     
   justify-content: center;
 }
 
@@ -133,7 +133,7 @@
 .quantity-selector .quantity-value {
   font-size: 1.1rem;
   font-weight: 500;
-  margin: 0 10px; /* Отступы по бокам от цифры */
+  margin: 0 10px; 
 }
 
 .cart-item {
@@ -142,7 +142,7 @@
 }
 
 .cart-item:hover {
-  background-color: #f8f9fa; /* Легкий фон при наведении */
+  background-color: #f8f9fa; 
 }
 
 /* Стили для кнопки удаления */
@@ -150,7 +150,7 @@
   position: absolute;
   top: 8px;
   right: 8px;
-  opacity: 0; /* Прячем по умолчанию */
+  opacity: 0; 
   visibility: hidden;
   transition: all 0.2s ease;
   border-radius: 50%;
