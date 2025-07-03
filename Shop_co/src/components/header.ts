@@ -1,3 +1,5 @@
+import { getCartTotalItems } from '/src/state/cart-state';
+
 import cartIcon from '/src/assets/icons/cartIcon.svg';
 import userIcon from '/src/assets/icons/userIcon.svg';
 
@@ -15,9 +17,12 @@ const render = () => {
 
         <a href="/" class="navbar-brand fw-bold fs-4 " data-navigo>SHOP.CO</a>
 
-        <div class="d-flex align-items-center">
-          <a href="/cart" class="text-dark me-3" aria-label="Cart" data-navigo>
+        <div class="d-flex align-items-center position-relative">
+          <a href="/cart" class="text-dark me-3 position-relative" aria-label="Cart" data-navigo>
             <img src="${cartIcon}" alt="Cart Icon" width="24" height="24">
+            <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none;">
+              0
+            </span>
           </a>
           <a href="/profile" class="text-dark" aria-label="User profile" data-navigo>
             <img src="${userIcon}" alt="User Profile Icon" width="24" height="24">
@@ -34,6 +39,15 @@ const render = () => {
     </div>
   `;
   return html;
+};
+
+export const updateCartBadge = () => {
+  const badge = document.getElementById('cart-badge');
+  if (badge) {
+    const totalItems = getCartTotalItems();
+    badge.textContent = String(totalItems);
+    badge.style.display = totalItems > 0 ? 'block' : 'none';
+  }
 };
 
 export const initializeHeader = () => {
@@ -59,4 +73,7 @@ export const initializeHeader = () => {
       }
     });
   });
+  updateCartBadge()
 };
+
+

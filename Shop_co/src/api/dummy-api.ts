@@ -27,7 +27,10 @@ export const getCategories = async (): Promise<Category[]> => {
 
 export type Product = {
   id: number;
+  category: string;
   title: string;
+  description: string;
+  images: string[];
   price: number;
   rating: number;
   stock: number;
@@ -56,5 +59,18 @@ export const getProductsByCategory = async (categorySlug: string): Promise<Produ
   } catch (error) {
     console.error(`Failed to fetch products for category ${categorySlug}:`, error);
     return [];
+  }
+};
+export const getProductById = async (productId: string): Promise<Product | null> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/products/${productId}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const product: Product = await response.json();
+    return product;
+  } catch (error) {
+    console.error(`Failed to fetch product with id ${productId}:`, error);
+    return null;
   }
 };

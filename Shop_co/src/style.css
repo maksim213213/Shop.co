@@ -101,3 +101,68 @@
   font-weight: 700; /* Жирный шрифт для выбранной опции */
   color: #000000;
 }
+
+.quantity-selector {
+  display: inline-flex;
+  align-items: center;
+  background-color: #f2f2f2;
+  border-radius: 50px; /* Овальная форма */
+  padding: 6px 10px;   /* Внутренние отступы */
+  border: 1px solid #e5e5e5;
+}
+
+/* Стили для КНОПОК "-" и "+" внутри переключателя */
+.quantity-selector .quantity-btn {
+  border: none;          /* <<--- Убираем рамку */
+  background: none;      /* <<--- Убираем фон */
+  padding: 0 12px;       /* Добавляем боковые отступы для кликабельной области */
+  font-size: 1.5rem;     /* Размер символов */
+  font-weight: 400;
+  cursor: pointer;
+  color: #212529;    
+  height: 36px;
+  width: 60px;           /* Фиксированная ширина и высота для круглой формы */
+
+  display: flex;
+  align-items: center;       /* Вертикальное центрирование */
+  justify-content: center;
+}
+
+
+/* Стили для ЦИФРЫ в центре */
+.quantity-selector .quantity-value {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0 10px; /* Отступы по бокам от цифры */
+}
+
+.cart-item {
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.cart-item:hover {
+  background-color: #f8f9fa; /* Легкий фон при наведении */
+}
+
+/* Стили для кнопки удаления */
+.delete-item-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  opacity: 0; /* Прячем по умолчанию */
+  visibility: hidden;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Показываем кнопку при наведении на родительский блок .cart-item */
+.cart-item:hover .delete-item-btn {
+  opacity: 1;
+  visibility: visible;
+}

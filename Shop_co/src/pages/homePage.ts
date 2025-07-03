@@ -85,7 +85,7 @@ export const homePage = async () => {
               <div class="col-6 col-md-4 col-lg-3">
                 <a href="/category/${category}" data-navigo class="category-tile card text-decoration-none text-dark text-center">
                   <div class="card-body d-flex align-items-center justify-content-center">
-                    <h3 class="card-title text-capitalize fw-bold">${category.replace(/-/g, ' ')}</h3>
+                    <h3 class="card-title text-capitalize fw-bold">${category}</h3>
                   </div>
                 </a>
               </div>
