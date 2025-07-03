@@ -9,10 +9,10 @@ export type Category = {
   url: string;
 };
 
-// Функция теперь возвращает Promise с массивом объектов типа Category
+// getCategory для получения списка категорий из апи
 export const getCategories = async (): Promise<Category[]> => {
   try {
-    // Используем правильный эндпоинт для получения списка объектов
+    // Используем эндпоинт для получения списка категорий
     const response = await fetch(`${API_BASE_URL}/products/category-list`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -36,7 +36,7 @@ export type Product = {
   discountPercentage: number;
 };
 
-// API возвращает объект, внутри которого есть массив продуктов
+// тайп для ответа с товарами
 type ProductsResponse = {
   products: Product[];
   total: number;
