@@ -3,9 +3,9 @@
 import type { Product } from '../api/dummy-api';
 
 const API_BASE_URL = 'https://dummyjson.com';
-const DEMO_CART_ID = 14; // Мы всегда будем использовать корзину №1
+const DEMO_CART_ID = 14; // ID демонстрационной корзины
 
-// Тип для корзины, как она приходит с сервера
+//Тип для корзины
 export type Cart = {
   id: number;
   products: (Product & { quantity: number; total: number; discountedPrice: number; })[];

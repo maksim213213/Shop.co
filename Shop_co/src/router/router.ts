@@ -1,10 +1,12 @@
 import Navigo from 'navigo';
 //pages
+
 import { homePage } from '../pages/homePage';
 import { cartPage } from '../pages/cartPage'
-import { profilePage } from '../pages/profilePage';
 import { categoryPage } from '../pages/categoryPage';
 import { productDetailPage } from '../pages/detailPage';
+import { checkoutPage } from '../pages/checkoutPage'; 
+import { confirmationPage } from '../pages/confirmationPage';
 
 const appContainer = document.getElementById('app-container');
 export const router = new Navigo('/');
@@ -25,11 +27,7 @@ const setupRoutes = () => {
       }
     })
     .on('/cart', () => {
-      // renderContent теперь не нужен, вся логика внутри cartPage
       cartPage();
-    })
-    .on('/profile', () => {
-      renderContent(profilePage());
     })
     .on('/category/:categoryName', async (match) => {
       if (match && match.data) {
@@ -40,13 +38,27 @@ const setupRoutes = () => {
         }
       }
     })
-    .on('/product/:productId', async ({ data }) => {
-      if (data) {
-        const page = await productDetailPage(data.productId);
+    .on('/product/:productId', async (match) => {
+      if (match && match.data) {
+        const page = await productDetailPage(match.data.productId);
         renderContent(page.html);
         if (page.postRender) {
           page.postRender();
         }
+      }
+    })
+    .on('/checkout', async () => {
+      const page = await checkoutPage(); 
+      renderContent(page.html);
+      if (page.postRender) {
+        page.postRender();
+      }
+    })
+    .on('/confirmation', () => {
+      const page = confirmationPage();
+      renderContent(page.html);
+      if (page.postRender) {
+        page.postRender();
       }
     })
     //для не найденых роутеров

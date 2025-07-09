@@ -40,12 +40,11 @@ export const initializeSubscribe = () => {
 
   if (form && formContainer) {
     form.addEventListener('submit', async (event) => {
-      event.preventDefault(); // Предотвращает перезагрузку
+      event.preventDefault();
       
       const emailInput = document.getElementById('email-input') as HTMLInputElement;
       const email = emailInput.value;
 
-      // Простая валидация
       if (!email || !email.includes('@')) {
         alert('Please enter a valid email address.');
         return;

@@ -4,15 +4,12 @@ import { fetchDemoCart } from "/src/state/cart-state";
 import type { Cart } from "/src/state/cart-state";
 import { updateCartBadge } from '/src/components/header';
 import { router } from '/src/router/router';
+import arrow from '/src/assets/icons/arrowRight.svg';
 
-// Тип для одного товара внутри объекта корзины с сервера
+
 type CartProductItem = Cart['products'][0];
 
-/**
- * Генерирует HTML для одного товара в списке корзины.
- * @param item - Объект товара из корзины.
- * @returns HTML-строка для карточки товара.
- */
+//HTML для одного товара в списке корзины.
 const renderCartItem = (item: CartProductItem): string => {
   // Цена за единицу со скидкой
   const pricePerItemWithDiscount = (item.price * (1 - item.discountPercentage / 100));
@@ -85,7 +82,7 @@ function renderCartView(cart: Cart) {
                 <p class="mb-2">$${cart.discountedTotal.toFixed(2)}</p>
               </div>
               <div class="d-grid mt-3">
-                <a href="/checkout" class="btn btn-dark rounded-pill py-2" data-navigo>Go to Checkout</a>
+                <a href="/checkout" class="btn btn-dark rounded-pill py-2 " data-navigo>Go to Checkout <img src="${arrow}" style="width: 20px; height: 20px; object-fit: cover; "></a>
               </div>
             </div>
           </div>

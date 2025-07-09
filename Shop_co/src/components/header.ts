@@ -20,13 +20,13 @@ const render = () => {
 
         <div class="d-flex align-items-center position-relative">
           <a href="/cart" class="text-dark me-3 position-relative" aria-label="Cart" data-navigo>
-            <img src="${cartIcon}" alt="Cart Icon" width="24" height="24">
+            <img src="${cartIcon}" alt="Cart Icon" width="26" height="26">
             <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none;">
               0
             </span>
           </a>
-          <a href="/profile" class="text-dark" aria-label="User profile" data-navigo>
-            <img src="${userIcon}" alt="User Profile Icon" width="24" height="24">
+          <a href="/" class="text-dark">
+            <img src="${userIcon}" alt="User Profile Icon" width="26" height="26">
           </a>
         </div>
       </div>
@@ -45,14 +45,14 @@ const render = () => {
 export const updateCartBadge = async () => {
   const badge = document.getElementById('cart-badge');
   if (badge) {
-    // Показываем счетчик, только если корзина активирована
+   
     if (sessionStorage.getItem('cartActivated') === 'true') {
       const demoCart = await fetchDemoCart();
       const totalItems = demoCart ? demoCart.totalQuantity : 0;
       badge.textContent = String(totalItems);
       badge.style.display = totalItems > 0 ? 'block' : 'none';
     } else {
-      // Если не активирована, всегда прячем счетчик
+      
       badge.style.display = 'none';
     }
   }

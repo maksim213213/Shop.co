@@ -1,14 +1,10 @@
 import { getProductById} from '/src/api/dummy-api';
-import type { Product } from '/src/api/dummy-api';
-
 import { updateCartBadge } from '/src/components/header';
-import { router } from '/src/router/router';
-
 
 import minusIcon from '/src/assets/icons/minus.svg';
 import plusIcon from '/src/assets/icons/plus.svg';
 
-//отрисовка звезд рейтинга
+//отрисовка звезд
 const renderStars = (rating: number): string => {
   const fullStars = Math.floor(rating);
   const halfStar = rating % 1 >= 0.5;
@@ -51,7 +47,7 @@ export const productDetailPage = async (productId: string) => {
             <img src="${product.thumbnail}" id="main-product-image" class="w-100 rounded" alt="${product.title}">
           </div>
           <div class="d-flex justify-content-start">
-            ${product.images.slice(0, 4).map((imgUrl) => `
+            ${product.images.slice(0, 4).map((imgUrl: any) => `
               <div class="thumbnail-container me-2 border border-2 rounded">
                 <img src="${imgUrl}" class="img-fluid product-thumbnail" data-full-image="${imgUrl}" style="cursor: pointer; height: 80px; width: 80px; object-fit: cover;">
               </div>
@@ -130,22 +126,16 @@ export const productDetailPage = async (productId: string) => {
       if (!addToCartBtn) return;
 
       if (sessionStorage.getItem('cartActivated') === 'true') {
-        // Если корзина уже активирована, делаем кнопку неактивной
         addToCartBtn.setAttribute('disabled', 'true');
       } else {
-        // Если нет, вешаем обработчик
         addToCartBtn.addEventListener('click', async () => {
           addToCartBtn.textContent = 'Activating...';
-
-          // Устанавливаем флаг в sessionStorage
           sessionStorage.setItem('cartActivated', 'true');
 
-          // Обновляем счетчик в хедере
           await updateCartBadge();
 
-          // Возвращаем исходный текст кнопки, но оставляем ее неактивной НАВСЕГДА
           addToCartBtn.textContent = 'Add to Cart';
-        }, { once: true }); // <--- { once: true } заставляет обработчик сработать один раз и удалиться
+        }, { once: true }); //заставляет обработчик сработать один раз и удалиться
       }
     }
   };

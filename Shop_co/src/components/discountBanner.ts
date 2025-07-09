@@ -13,7 +13,7 @@ const render = () => {
 };
 
 export const initializeDiscountBanner = () => {
-  const isBannerClosed = localStorage.getItem(BANNER_STORAGE_KEY);
+  const isBannerClosed = sessionStorage.getItem(BANNER_STORAGE_KEY);
   if (isBannerClosed === 'true') {
     return;
   }
@@ -27,9 +27,8 @@ export const initializeDiscountBanner = () => {
 
     if (closeButton && bannerElement) {
       closeButton.addEventListener('click', () => {
-        bannerElement.style.display = 'none';
-        // localstorage
-        localStorage.setItem(BANNER_STORAGE_KEY, 'true');
+        bannerElement.classList.add('hidden');
+        sessionStorage.setItem(BANNER_STORAGE_KEY, 'true');
       });
     }
   }

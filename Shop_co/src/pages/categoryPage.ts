@@ -42,8 +42,6 @@ const renderProductCard = (product: Product): string => {
   `;
 };
 
-
-// --- Основная функция страницы ---
 export const categoryPage = async (categoryName: string) => {
   let originalProducts: Product[] = [];
 
